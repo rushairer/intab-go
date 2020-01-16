@@ -1,0 +1,8 @@
+FROM golang:latest
+
+WORKDIR /go/src/intab
+COPY . .
+
+RUN go-wrapper download
+
+CMD [ "./run-dev.sh" ]

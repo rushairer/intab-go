@@ -1,0 +1,11 @@
+FROM golang:alpine3.6
+
+WORKDIR /go/src/
+COPY intab-core intab-core
+COPY intab-webserver intab-webserver
+
+WORKDIR /go/src/intab-webserver
+RUN go-wrapper download
+RUN go-wrapper install
+
+CMD [ "go-wrapper", "run" ]

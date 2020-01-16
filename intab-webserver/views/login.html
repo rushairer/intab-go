@@ -1,0 +1,24 @@
+{{ define "html" }}
+<h3>Login</h3>
+
+{{ range .flash }}
+{{ . }}
+{{ end}}
+<form method="POST" action="/login">
+    <p>
+        <label for="username">Email/Phone:</label><input name="username" type="text"/>
+    </p>
+    <p>
+        <label for="password">Password:</label><input name="password" type="password"/>
+    </p>
+    <p>
+    <input type="submit" value="Login">
+    </p>
+</form>
+{{ end }}
+
+{{ define "css"}}
+{{ end }}
+
+{{ define "js"}}
+{{ end}}

@@ -1,0 +1,12 @@
+FROM intab-all:latest
+
+WORKDIR /go/src/
+COPY intab-core intab-core
+COPY intab-websocketserver intab-websocketserver
+
+WORKDIR /go/src/intab-websocketserver
+COPY scripts/run-dev.sh run-dev.sh
+
+RUN go-wrapper download
+
+CMD [ "./run-dev.sh" ]

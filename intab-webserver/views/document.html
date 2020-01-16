@@ -1,0 +1,124 @@
+{{ define "html" }}
+
+
+<!--
+<p>
+权限: {{ if eq .permission 1 }}写{{ else }}只读{{ end }}
+</p>
+-->
+
+<div style="text-align:center; margin:0 2em;">
+  <h2>intab</h2>
+</div>
+
+
+<script>
+var intab = window.InTab;
+</script>
+
+
+<div id="grid_2" class="intab_grid_container">
+    <!-- z-index=100 -->
+    <div class="layer_canvas"></div>
+    <!-- z-index=200 -->
+    <div class="layer_touch"></div>
+    <!-- z-index=300 -->
+    <div class="layer_images">
+<!--        <div style="width:80px;height:40px;border:1px solid red;"></div>-->
+    </div>
+    <!-- z-index=400 -->
+    <div class="layer_content">
+        <div class="editor_window"></div>
+        <div class="window"></div>
+    </div>
+</div>
+
+
+<div id="console_debug" style="position:absolute; bottom: 0; margin-top:4px;height:25px;width:100%;background:#EEE;color:000;"></div>
+
+<script>
+//var grid_object = new intab.v3('grid_1');
+var sheet_window = new intab.v4('grid_2');
+$(function() {
+//    grid_object.init();
+    sheet_window.init();
+});
+</script>
+
+
+
+<script>
+var host = document.domain + ':10080';
+host = host.replace(/dev/i,"api")
+var url = "ws://" + host + "/ws?access_token={{ .token }}&ch={{ .ch }}";
+var ws = new WebSocket(url);
+var myid = null;
+ws.onopen = function (msg) {
+    console.log('onopen');
+    console.log(msg);
+    
+    
+    
+}
+ws.onmessage = function (msg) {
+    console.log('onmessage');
+    console.log(msg);
+//    document.getElementById("result-text").innerHTML = msg.data
+    json = JSON.parse(msg.data);
+//    console.log(json)
+    if (json.tag == "conn") {
+        if(!myid) {
+//            iam(json.id)
+            myid = json.id;
+        }
+    }
+    
+    
+//    submit();
+    
+};
+
+
+function OLDsendMessage() {
+//    tag = document.getElementById("tag-select").value
+//    data = document.getElementById("data-text").value
+    ws.send(JSON.stringify({id: myid, tag: tag, data: data}));
+}
+    
+function sendMessage(tag, objData) {
+    return ws.send(JSON.stringify({id: myid, tag: tag, data: JSON.stringify(objData)}));
+}
+    
+function submit() {
+    var tag     = '/document/commit';
+    var data    = {
+        type:        1,
+        action:      1,
+        address:     'C3',
+        content:     'ABC'
+    };
+    sendMessage(tag, data);
+}
+
+    
+    setTimeout(function() {
+        
+        submit();
+        
+    }, 1000);
+    
+    
+</script>
+
+
+{{ end }}
+
+{{ define "css"}}
+{{ end }}
+
+{{ define "js"}}
+{{ end}}
+
+
+
+

@@ -1,0 +1,5 @@
+FROM node:latest
+
+RUN npm install jayson
+
+EXPOSE 8080

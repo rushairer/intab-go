@@ -1,0 +1,97 @@
+{{ define "html" }}
+<div class="content__inner">
+    <header class="content__title">
+        <h1>Websocket Test</h1>
+
+        <div class="actions">
+            <a href="" class="actions__item zmdi zmdi-trending-up"></a>
+            <a href="" class="actions__item zmdi zmdi-check-all"></a>
+        </div>
+    </header>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Channel: {{ .ch }}</h2>
+            <small class="card-subtitle">Token: {{ .token }}</small>
+            <small id="id-text" class="card-subtitle"></small>
+        </div>
+
+        <div class="card-block">
+            <div class="form-group form-group--select">
+                <div class="select">
+                    <select id="tag-select" class="form-control">
+                        <option>Select an Action</option>
+                        <option>/document/get</option>
+                        <option>/cell/set</option>
+                        <option>/style/set</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <textarea id="data-text" class="form-control textarea-autosize" placeholder="Data (Json string)"></textarea>
+                <i class="form-group__bar"></i>
+            </div>
+            <div class="form-group">
+                <button onclick="sendMessage()" class="btn btn-danger">Send</button>
+            </div>
+
+            <h3 class="card-block__title">Result</h3>
+            <div class="form-group">
+                <pre id="result-text">{}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "css"}}
+<style>
+</style>
+{{ end }}
+
+{{ define "js"}}
+<script>
+var host = document.domain + ':10080';
+host = host.replace(/dev/i,"api")
+var url = "ws://" + host + "/ws?access_token={{ .token }}&ch={{ .ch }}";
+var ws = new WebSocket(url);
+var users = new Array();
+var myid = null;
+ws.onopen = function (msg) {
+}
+ws.onmessage = function (msg) {
+    document.getElementById("result-text").innerHTML = msg.data
+    json = JSON.parse(msg.data);
+    console.log(json)
+    if (json.tag == "conn") {
+        if(!myid) {
+            iam(json.id)
+        }
+    }
+};
+
+function iam(id) {
+    myid = id;
+    console.log(myid)
+    document.getElementById("id-text").innerHTML = "Current ID: " + myid
+}
+
+function dis(id) {
+    var node = document.getElementById("gopher-" + id);
+    console.log(node)
+    if (node) {
+        document.body.removeChild(node);
+    }
+}
+
+function sendMessage() {
+    tag = document.getElementById("tag-select").value
+    data = document.getElementById("data-text").value
+    ws.send(JSON.stringify({id: myid, tag: tag, data: data}));
+}
+
+</script>
+
+<script src="{{ .IT_CDN_HOST }}/vendors/bower_components/autosize/dist/autosize.min.js"></script>
+{{ end}}

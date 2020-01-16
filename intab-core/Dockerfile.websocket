@@ -1,0 +1,12 @@
+FROM golang:latest
+
+WORKDIR /go/src/intab
+COPY . .
+WORKDIR /go/src/intab/websocket
+
+RUN go-wrapper download
+RUN go-wrapper install
+RUN go build .
+
+WORKDIR /go/src/intab/bin
+CMD [ "./websocketd", "--port", "8080", "../websocket/websocket" ]

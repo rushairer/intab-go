@@ -1,0 +1,4 @@
+FROM golang:alpine3.6
+
+WORKDIR /go/src/
+COPY gopath/src /go/src

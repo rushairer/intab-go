@@ -1,0 +1,9 @@
+FROM golang:latest
+
+WORKDIR /go/src/intab
+COPY . .
+WORKDIR /go/src/intab/websocket
+
+RUN go-wrapper download
+
+CMD [ "./run-dev.sh" ]

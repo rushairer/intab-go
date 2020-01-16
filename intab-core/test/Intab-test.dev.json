@@ -1,0 +1,236 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Intab",
+		"_postman_id": "213e563f-5237-755c-ac26-7c9da8d21884",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Document",
+			"description": "",
+			"item": [
+				{
+					"name": "Create a document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var responseJSON;",
+									"",
+									"try { responseJSON = JSON.parse(responseBody); }",
+									"catch (e) { }",
+									"",
+									"tests[\"Response has code 20201\"] = responseJSON && responseJSON.code && (responseJSON.code === 20201);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://intab.api.aben.com/documents",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer FXZ2GQRAPMSQKONIAFIJ8A",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "uid",
+									"type": "text",
+									"value": "123"
+								},
+								{
+									"key": "filename",
+									"type": "text",
+									"value": "团队项目表格"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show a document with did",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var responseJSON;",
+									"",
+									"try { responseJSON = JSON.parse(responseBody); }",
+									"catch (e) { }",
+									"",
+									"tests[\"Response has code 20200\"] = responseJSON && responseJSON.code && (responseJSON.code === 20200);",
+									"tests[\"Response has data\"] = responseJSON && responseJSON.data;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://intab.api.aben.com/documents/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer FXZ2GQRAPMSQKONIAFIJ8A",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show a document with did (Not found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var responseJSON;",
+									"",
+									"try { responseJSON = JSON.parse(responseBody); }",
+									"catch (e) { }",
+									"",
+									"tests[\"Response has code 20404\"] = responseJSON && responseJSON.code && (responseJSON.code === 20404);",
+									"tests[\"Response has data null\"] = responseJSON && (responseJSON.data === null);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://intab.api.aben.com/documents/9999999999",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer FXZ2GQRAPMSQKONIAFIJ8A",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OAuth",
+			"description": "",
+			"item": [
+				{
+					"name": "ClientCredentials",
+					"request": {
+						"url": "http://intab.api.aben.com/oauth2/token",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "go-api-client",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "fGGSooJSA8s6FjF8AFuc18TBI3XrD5RNCdJXi2ix",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "all",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Password",
+					"request": {
+						"url": "http://intab.api.aben.com/oauth2/token",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "go-api-client",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "fGGSooJSA8s6FjF8AFuc18TBI3XrD5RNCdJXi2ix",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "abenx",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "all",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,21 @@
+key: f79b10d678d69d79e4773ec5b1f9d222733b018d
+addr: :8080
+cdnhost: http://intab.oss-cn-beijing.aliyuncs.com
+db:
+    driver: mysql
+    dsn: root:123456@tcp(mysql-server:3306)/intab?charset=utf8mb4&parseTime=True&loc=PRC
+redis:
+    host: redis-server
+    port: 6379
+    password: 123456
+    secret: eb18c98151ae3101c2b1c1e32364c24647354db0
+oauth2:
+    clientid: go-api-client
+    clientsecret: fGGSooJSA8s6FjF8AFuc18TBI3XrD5RNCdJXi2ix
+    clientdomain: http://intab.dev.cafegg.com
+    wechatapiurl: http://wxapi.simpp.cn/api/101/open_id
+    wechatcallbackurl: http://%s:10080/oauth2/wechat_callback
+    wechatuserinfourl: http://wxapi.simpp.cn/api/101/user_info/open_id
+nsq:
+    host: nsq-server
+    port: 4150

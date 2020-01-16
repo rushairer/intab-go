@@ -1,0 +1,22 @@
+{{ define "html" }}
+
+<section class="error">
+    <div class="error__inner">
+        <h1>私密</h1>
+        <h2>该文件为私密文件</h2>
+        <p>您可以向创建者</p>
+        <div>
+            <form method="POST" action="/document/{{ .key }}/request">
+                <input type="submit" class="btn btn-danger btn-lg" value="申请访问权限"/>
+            </form>
+        </div>
+    </div>
+</section>
+
+{{ end }}
+
+{{ define "css"}}
+{{ end }}
+
+{{ define "js"}}
+{{ end}}
