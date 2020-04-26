@@ -6,7 +6,10 @@ import (
 	"fmt"
 	repo "intab-core/repositories"
 
-	"github.com/go-oauth2/redis"
+	"github.com/go-redis/redis"
+
+	oredis "gopkg.in/go-oauth2/redis.v3"
+
 	"gopkg.in/oauth2.v3"
 	"gopkg.in/oauth2.v3/errors"
 	"gopkg.in/oauth2.v3/manage"
@@ -27,10 +30,10 @@ func InitServer(conf map[string]string) {
 
 		manager := manage.NewDefaultManager()
 		// token memory store
-		// manager.MustTokenStorage(store.NewMemoryTokenStore())
+		// manager.MapTokenStorage(store.NewMemoryTokenStore())
 
 		// use redis token store
-		manager.MustTokenStorage(redis.NewTokenStore(&redis.Config{
+		manager.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
 			Addr:     conf["redis_host"] + ":" + conf["redis_port"],
 			Password: conf["redis_password"],
 		}))
